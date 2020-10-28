@@ -1,6 +1,18 @@
 import toTestResult from './toTestResult';
+import type { Path } from './types';
 
-const fail = ({ start, end, test, errorMessage }) =>
+interface Options {
+  start: number;
+  end: number;
+  test: {
+    title: string;
+    path: Path;
+    errorMessage?: string;
+  };
+  errorMessage?: string;
+}
+
+const fail = ({ start, end, test, errorMessage }: Options) =>
   toTestResult({
     errorMessage: errorMessage || test.errorMessage,
     stats: {
@@ -11,6 +23,7 @@ const fail = ({ start, end, test, errorMessage }) =>
       start,
       end,
     },
+    skipped: false,
     tests: [{ duration: end - start, ...test }],
     jestTestPath: test.path,
   });
