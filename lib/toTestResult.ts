@@ -1,14 +1,14 @@
 import type { TestResult } from '@jest/test-result';
 import type { Milliseconds } from './types';
 
-interface ToTestResultOptions {
+interface Options {
   stats: {
     failures: number;
     passes: number;
     pending: number;
     todo: number;
-    end: number;
     start: number;
+    end: number;
   };
   skipped: boolean;
   errorMessage?: string | null;
@@ -27,17 +27,20 @@ const toTestResult = ({
   errorMessage,
   tests,
   jestTestPath,
-}: ToTestResultOptions): TestResult => {
+}: Options): TestResult => {
   return {
-    console: null,
     failureMessage: errorMessage,
+    leaks: false,
     numFailingTests: stats.failures,
     numPassingTests: stats.passes,
     numPendingTests: stats.pending,
     numTodoTests: stats.todo,
+    openHandles: [],
     perfStats: {
       end: new Date(stats.end).getTime(),
       start: new Date(stats.start).getTime(),
+      runtime: new Date(stats.end).getTime() - new Date(stats.start).getTime(),
+      slow: false, // TODO: determine `slow`
     },
     skipped,
     snapshot: {
@@ -45,18 +48,21 @@ const toTestResult = ({
       fileDeleted: false,
       matched: 0,
       unchecked: 0,
+      uncheckedKeys: [],
       unmatched: 0,
       updated: 0,
     },
-    sourceMaps: {},
-    testExecError: null,
     testFilePath: jestTestPath,
     testResults: tests.map(test => {
       return {
         ancestorTitles: [],
         duration: test.duration,
-        failureMessages: test.errorMessage ? [test.errorMessage] : [],
-        fullName: test.testPath,
+        failureDetails: [],
+        failureMessages:
+          errorMessage || test.errorMessage
+            ? [(errorMessage || test.errorMessage) as string]
+            : [],
+        fullName: jestTestPath || test.testPath || '',
         numPassingAsserts: test.errorMessage ? 1 : 0,
         status: test.errorMessage ? 'failed' : 'passed',
         title: test.title || '',
