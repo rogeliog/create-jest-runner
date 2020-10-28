@@ -2,3 +2,8 @@
 
 export type Milliseconds = number;
 export type Path = string;
+
+export interface TestDetail {
+  title: string;
+  path: Path;
+}
