@@ -26,8 +26,8 @@
     "prettier:run": "prettier '*.md' '.github/**' '*.json' '**/package.json' '.vscode/*.json' 'generator/fixtures/*'",
     "prettier:check": "yarn prettier:run --check",
     "prettier:write": "yarn prettier:run --write",
-    "watch": "babel lib -w --ignore '**/*.test.js,integration' -d build",
-    "build": "babel lib --ignore '**/*.test.js,integration' -d build",
+    "watch": "babel lib --ignore '**/*.test.js,integration' --out-dir build --extensions '.ts' --watch",
+    "build": "babel lib --ignore '**/*.test.js,integration' --out-dir build --extensions '.ts'",
     "prepare": "yarn build"
   },
   "dependencies": {
