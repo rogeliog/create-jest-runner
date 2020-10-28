@@ -21,13 +21,18 @@ interface Options {
   jestTestPath: string;
 }
 
-const toTestResult = ({
-  stats,
-  skipped,
-  errorMessage,
-  tests,
-  jestTestPath,
-}: Options): TestResult => {
+function getPerfStats({ stats }: Options): TestResult['perfStats'] {
+  const start = new Date(stats.start).getTime();
+  const end = new Date(stats.end).getTime();
+  const runtime = end - start;
+  // TODO: determine `slow` by using `runtime / 1000 > config.slowTestThreshold`
+  // See: https://github.com/facebook/jest/blob/acd7c83c8365140f4ecf44a456ff7366ffa31fa2/packages/jest-runner/src/runTest.ts#L287
+  const slow = false;
+  return { start, end, runtime, slow };
+}
+
+export default function toTestResult(options: Options): TestResult {
+  const { stats, skipped, errorMessage, tests, jestTestPath } = options;
   return {
     failureMessage: errorMessage,
     leaks: false,
@@ -36,12 +41,7 @@ const toTestResult = ({
     numPendingTests: stats.pending,
     numTodoTests: stats.todo,
     openHandles: [],
-    perfStats: {
-      end: new Date(stats.end).getTime(),
-      start: new Date(stats.start).getTime(),
-      runtime: new Date(stats.end).getTime() - new Date(stats.start).getTime(),
-      slow: false, // TODO: determine `slow`
-    },
+    perfStats: getPerfStats(options),
     skipped,
     snapshot: {
       added: 0,
@@ -69,6 +69,4 @@ const toTestResult = ({
       };
     }),
   };
-};
-
-export default toTestResult;
+}
