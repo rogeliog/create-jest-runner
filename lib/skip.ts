@@ -1,17 +1,14 @@
 import toTestResult from './toTestResult';
-import type { Path } from './types';
+import type { TestDetail } from './types';
 
 interface Options {
   start: number;
   end: number;
-  test: {
-    title: string;
-    path: Path;
-  };
+  test: TestDetail;
 }
 
-const skip = ({ start, end, test }: Options) =>
-  toTestResult({
+export default function skip({ start, end, test }: Options) {
+  return toTestResult({
     stats: {
       failures: 0,
       pending: 1,
@@ -24,5 +21,4 @@ const skip = ({ start, end, test }: Options) =>
     tests: [{ duration: end - start, ...test }],
     jestTestPath: test.path,
   });
-
-export default skip;
+}
