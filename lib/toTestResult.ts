@@ -1,10 +1,33 @@
+import type { TestResult } from '@jest/test-result';
+import type { Milliseconds } from './types';
+
+interface ToTestResultOptions {
+  stats: {
+    failures: number;
+    passes: number;
+    pending: number;
+    todo: number;
+    end: number;
+    start: number;
+  };
+  skipped: boolean;
+  errorMessage?: string | null;
+  tests: Array<{
+    duration?: Milliseconds | null;
+    errorMessage?: string;
+    testPath?: string;
+    title?: string;
+  }>;
+  jestTestPath: string;
+}
+
 const toTestResult = ({
   stats,
   skipped,
   errorMessage,
   tests,
   jestTestPath,
-}) => {
+}: ToTestResultOptions): TestResult => {
   return {
     console: null,
     failureMessage: errorMessage,
