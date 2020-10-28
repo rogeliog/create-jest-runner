@@ -6,6 +6,23 @@
     "prettier/@typescript-eslint"
   ],
   "plugins": ["prettier", "jest"],
+  "settings": {
+    "import/core-modules": [],
+    "import/extensions": [".ts", ".tsx", ".d.ts", ".mjs", ".js", ".jsx"],
+    "import/external-module-folders": ["node_modules", "node_modules/@types"],
+    "import/ignore": [
+      "node_modules",
+      "\\.(coffee|scss|css|less|hbs|svg|json)$"
+    ],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx", ".d.ts"]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx", ".d.ts", ".mjs", ".js", ".jsx"]
+      }
+    }
+  },
   "rules": {
     "no-underscore-dangle": "off",
     "max-classes-per-file": "off",
