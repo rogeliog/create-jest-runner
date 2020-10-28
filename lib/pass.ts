@@ -1,6 +1,16 @@
 import toTestResult from './toTestResult';
+import type { Path } from './types';
 
-const pass = ({ start, end, test }) =>
+interface Options {
+  start: number;
+  end: number;
+  test: {
+    title: string;
+    path: Path;
+  };
+}
+
+const pass = ({ start, end, test }: Options) =>
   toTestResult({
     stats: {
       failures: 0,
@@ -10,6 +20,7 @@ const pass = ({ start, end, test }) =>
       start,
       end,
     },
+    skipped: false,
     tests: [{ duration: end - start, ...test }],
     jestTestPath: test.path,
   });
