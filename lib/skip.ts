@@ -1,6 +1,16 @@
 import toTestResult from './toTestResult';
+import type { Path } from './types';
 
-const skip = ({ start, end, test }) =>
+interface Options {
+  start: number;
+  end: number;
+  test: {
+    title: string;
+    path: Path;
+  };
+}
+
+const skip = ({ start, end, test }: Options) =>
   toTestResult({
     stats: {
       failures: 0,
