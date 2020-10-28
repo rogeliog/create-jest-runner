@@ -43,8 +43,28 @@ function getSnapshot(): TestResult['snapshot'] {
   };
 }
 
+function getTestResults({
+  errorMessage,
+  tests,
+  jestTestPath,
+}: Options): TestResult['testResults'] {
+  return tests.map(test => ({
+    ancestorTitles: [],
+    duration: test.duration,
+    failureDetails: [],
+    failureMessages:
+      errorMessage || test.errorMessage
+        ? [(errorMessage || test.errorMessage) as string]
+        : [],
+    fullName: jestTestPath || test.testPath || '',
+    numPassingAsserts: test.errorMessage ? 1 : 0,
+    status: test.errorMessage ? 'failed' : 'passed',
+    title: test.title || '',
+  }));
+}
+
 export default function toTestResult(options: Options): TestResult {
-  const { stats, skipped, errorMessage, tests, jestTestPath } = options;
+  const { stats, skipped, errorMessage, jestTestPath } = options;
   return {
     failureMessage: errorMessage,
     leaks: false,
@@ -57,20 +77,6 @@ export default function toTestResult(options: Options): TestResult {
     skipped,
     snapshot: getSnapshot(),
     testFilePath: jestTestPath,
-    testResults: tests.map(test => {
-      return {
-        ancestorTitles: [],
-        duration: test.duration,
-        failureDetails: [],
-        failureMessages:
-          errorMessage || test.errorMessage
-            ? [(errorMessage || test.errorMessage) as string]
-            : [],
-        fullName: jestTestPath || test.testPath || '',
-        numPassingAsserts: test.errorMessage ? 1 : 0,
-        status: test.errorMessage ? 'failed' : 'passed',
-        title: test.title || '',
-      };
-    }),
+    testResults: getTestResults(options),
   };
 }
