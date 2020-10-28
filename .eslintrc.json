@@ -30,6 +30,12 @@
       "rules": {
         "no-console": "off"
       }
+    },
+    {
+      "files": "**/__fixtures__/**/*",
+      "rules": {
+        "no-console": 0
+      }
     }
   ]
 }
