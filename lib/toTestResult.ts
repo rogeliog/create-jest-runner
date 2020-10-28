@@ -31,6 +31,18 @@ function getPerfStats({ stats }: Options): TestResult['perfStats'] {
   return { start, end, runtime, slow };
 }
 
+function getSnapshot(): TestResult['snapshot'] {
+  return {
+    added: 0,
+    fileDeleted: false,
+    matched: 0,
+    unchecked: 0,
+    uncheckedKeys: [],
+    unmatched: 0,
+    updated: 0,
+  };
+}
+
 export default function toTestResult(options: Options): TestResult {
   const { stats, skipped, errorMessage, tests, jestTestPath } = options;
   return {
@@ -43,15 +55,7 @@ export default function toTestResult(options: Options): TestResult {
     openHandles: [],
     perfStats: getPerfStats(options),
     skipped,
-    snapshot: {
-      added: 0,
-      fileDeleted: false,
-      matched: 0,
-      unchecked: 0,
-      uncheckedKeys: [],
-      unmatched: 0,
-      updated: 0,
-    },
+    snapshot: getSnapshot(),
     testFilePath: jestTestPath,
     testResults: tests.map(test => {
       return {
