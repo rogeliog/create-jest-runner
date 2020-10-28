@@ -12,11 +12,13 @@ class CancelRun extends Error {
   }
 }
 
-const createRunner = <ExtraOptionsType extends Record<string, unknown>>(
+export default function createRunner<
+  ExtraOptionsType extends Record<string, unknown>
+>(
   runPath: Path,
   { getExtraOptions }: { getExtraOptions?: () => ExtraOptionsType } = {},
-): typeof TestRunner => {
-  class BaseTestRunner implements TestRunner {
+): typeof TestRunner {
+  return class BaseTestRunner implements TestRunner {
     readonly _globalConfig: Config.GlobalConfig;
 
     readonly _context: JestRunner.TestRunnerContext;
@@ -173,16 +175,11 @@ const createRunner = <ExtraOptionsType extends Record<string, unknown>>(
         ),
       );
 
-      const cleanup = () => worker.end();
+      const cleanup = () => {
+        worker.end();
+      };
 
-      return (Promise.race([runAllTests, onInterrupt]).then(
-        cleanup,
-        cleanup,
-      ) as unknown) as Promise<void>;
+      return Promise.race([runAllTests, onInterrupt]).then(cleanup, cleanup);
     }
-  }
-
-  return BaseTestRunner;
-};
-
-export default createRunner;
+  };
+}
