@@ -374,7 +374,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-class-properties@npm:^7.12.1":
+"@babel/plugin-proposal-class-properties@npm:^7.0.0, @babel/plugin-proposal-class-properties@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-proposal-class-properties@npm:7.12.1"
   dependencies:
@@ -1713,6 +1713,7 @@ __metadata:
     debug: ^4.1.1
   peerDependencies:
     eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
+    typescript: "*"
   peerDependenciesMeta:
     typescript:
       optional: true
@@ -1749,6 +1750,8 @@ __metadata:
     lodash: ^4.17.15
     semver: ^7.3.2
     tsutils: ^3.17.1
+  peerDependencies:
+    typescript: "*"
   peerDependenciesMeta:
     typescript:
       optional: true
@@ -2603,6 +2606,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.0.0
     "@babel/core": ^7.0.0
+    "@babel/plugin-proposal-class-properties": ^7.0.0
     "@babel/preset-env": ^7.0.0
     "@babel/preset-typescript": ^7.0.0
     "@typescript-eslint/eslint-plugin": ^4.6.0
