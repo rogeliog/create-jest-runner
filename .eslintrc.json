@@ -8,6 +8,7 @@
   ],
   "plugins": ["prettier", "jest"],
   "rules": {
+    "import/export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
