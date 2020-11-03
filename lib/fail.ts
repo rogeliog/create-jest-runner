@@ -22,7 +22,12 @@ export default function fail(options: {
   errorMessage: string;
 }): TestResult;
 
-export default function fail({ start, end, test, errorMessage }: Options) {
+export default function fail({
+  start,
+  end,
+  test,
+  errorMessage,
+}: Options): TestResult {
   // TODO: Currently the `fail` function allows 2 ways to pass an error message.
   // Both methods are currently in used by downstream packages.
   // The current behaviour is to favour `errorMessage` over `test.errorMessage`.

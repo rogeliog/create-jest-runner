@@ -1,3 +1,4 @@
+import type { TestResult } from '@jest/test-result';
 import toTestResult from './toTestResult';
 import type { TestDetail } from './types';
 
@@ -7,7 +8,7 @@ interface Options {
   test: TestDetail;
 }
 
-export default function skip({ start, end, test }: Options) {
+export default function skip({ start, end, test }: Options): TestResult {
   return toTestResult({
     stats: {
       failures: 0,
