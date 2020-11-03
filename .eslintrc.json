@@ -22,10 +22,7 @@
     "max-classes-per-file": "off",
     "no-underscore-dangle": "off",
     "no-useless-constructor": "off",
-    "@typescript-eslint/prefer-ts-expect-error": "error",
-    // TODO: turn on after migrating to TS
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/prefer-ts-expect-error": "error"
   },
   "env": {
     "jest/globals": true
@@ -41,6 +38,14 @@
       "files": "integrationTests/__fixtures__/**/*",
       "rules": {
         "no-console": "off"
+      }
+    },
+    {
+      // TODO: remove after migrating to TS
+      "files": "**/*.js",
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     }
   ]

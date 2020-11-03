@@ -77,7 +77,7 @@ export default function createRunner<
                 }
 
                 return onStart(test).then(() => {
-                  // eslint-disable-next-line import/no-dynamic-require, global-require
+                  // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires
                   const runner = require(runPath);
                   const baseOptions = {
                     config: test.context.config,
