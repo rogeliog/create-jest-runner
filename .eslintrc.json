@@ -8,6 +8,16 @@
   ],
   "plugins": ["prettier", "jest"],
   "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "mjs": "never",
+        "jsx": "never",
+        "ts": "never"
+      }
+    ],
     "max-classes-per-file": "off",
     "no-underscore-dangle": "off",
     "no-useless-constructor": "off",
