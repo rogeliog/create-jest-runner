@@ -48,19 +48,20 @@ function getTestResults({
   tests,
   jestTestPath,
 }: Options): TestResult['testResults'] {
-  return tests.map(test => ({
-    ancestorTitles: [],
-    duration: test.duration,
-    failureDetails: [],
-    failureMessages:
-      errorMessage || test.errorMessage
-        ? [(errorMessage || test.errorMessage) as string]
-        : [],
-    fullName: jestTestPath || test.testPath || '',
-    numPassingAsserts: test.errorMessage ? 1 : 0,
-    status: test.errorMessage ? 'failed' : 'passed',
-    title: test.title || '',
-  }));
+  return tests.map(test => {
+    const actualErrorMessage = errorMessage || test.errorMessage;
+
+    return {
+      ancestorTitles: [],
+      duration: test.duration,
+      failureDetails: [],
+      failureMessages: actualErrorMessage ? [actualErrorMessage] : [],
+      fullName: jestTestPath || test.testPath || '',
+      numPassingAsserts: test.errorMessage ? 1 : 0,
+      status: test.errorMessage ? 'failed' : 'passed',
+      title: test.title || '',
+    };
+  });
 }
 
 export default function toTestResult(options: Options): TestResult {
