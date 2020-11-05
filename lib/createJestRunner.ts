@@ -3,7 +3,7 @@ import type { Config } from '@jest/types';
 import type * as JestRunner from 'jest-runner';
 import Worker from 'jest-worker';
 import throat from 'throat';
-import type { Path, TestRunner } from './types';
+import type { CreateRunnerOptions, Path, TestRunner } from './types';
 
 class CancelRun extends Error {
   constructor(message?: string) {
@@ -16,7 +16,7 @@ export default function createRunner<
   ExtraOptionsType extends Record<string, unknown>
 >(
   runPath: Path,
-  { getExtraOptions }: { getExtraOptions?: () => ExtraOptionsType } = {},
+  { getExtraOptions }: CreateRunnerOptions<ExtraOptionsType> = {},
 ): typeof TestRunner {
   return class BaseTestRunner implements TestRunner {
     readonly _globalConfig: Config.GlobalConfig;

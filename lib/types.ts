@@ -11,6 +11,12 @@ export interface TestDetail {
   path: Path;
 }
 
+export interface CreateRunnerOptions<
+  ExtraOptionsType extends Record<string, unknown>
+> {
+  getExtraOptions?: () => ExtraOptionsType;
+}
+
 // Copied and adapted from https://github.com/facebook/jest/blob/2dafb09d51584d3785f3280f569784ec4334b5d8/packages/jest-runner/src/index.ts#L48-L285
 export declare abstract class TestRunner {
   readonly _globalConfig: JestConfig.GlobalConfig;
