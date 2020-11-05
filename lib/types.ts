@@ -1,10 +1,13 @@
 // Common type aliases for better code readability
 
-import type { Config as JestConfig } from '@jest/types';
+import type {
+  Config as JestConfig,
+  TestResult as JestTestResult,
+} from '@jest/types';
 import type * as JestRunner from 'jest-runner';
 
-export type Milliseconds = number;
-export type Path = string;
+export type Milliseconds = JestTestResult.Milliseconds;
+export type Path = JestConfig.Path;
 
 export interface TestDetail {
   title: string;
