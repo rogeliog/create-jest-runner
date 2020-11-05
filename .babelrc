@@ -11,8 +11,7 @@
     [
       "@babel/preset-typescript",
       {
-        "allowDeclareFields": true,
-        "onlyRemoveTypeImports": true
+        "allowDeclareFields": true
       }
     ]
   ],
