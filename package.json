@@ -21,7 +21,6 @@
   "scripts": {
     "test": "jest --no-color",
     "lint": "eslint .",
-    "typecheck": "tsc",
     "prettier:run": "prettier '*.md' '.github/**' '*.json' '**/package.json' '.vscode/*.json' 'generator/fixtures/*'",
     "prettier:check": "yarn prettier:run --check",
     "prettier:write": "yarn prettier:run --write",
