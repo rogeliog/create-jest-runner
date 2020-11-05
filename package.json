@@ -16,8 +16,7 @@
   "homepage": "https://github.com/jest-community/create-jest-runner",
   "files": [
     "build/",
-    "generator/",
-    "types/"
+    "generator/"
   ],
   "scripts": {
     "test": "jest --no-color",
