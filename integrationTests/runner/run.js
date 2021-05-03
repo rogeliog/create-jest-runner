@@ -1,4 +1,5 @@
 const fs = require('fs');
+// eslint-disable-next-line import/no-unresolved -- ignore unresolved build artifact
 const { pass, fail, skip, todo } = require('../..');
 
 module.exports = ({ testPath }) => {
